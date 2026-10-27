@@ -1,17 +1,17 @@
 {
   "name": "framework-app",
   "version": "0.2.0",
-  "description": "Starter API application built on mohamedhabibwork/framework",
   "private": true,
-  "type": "module",
+  "description": "Starter API application built on mohamedhabibwork/framework",
   "homepage": "https://github.com/mohamedhabibwork/framework",
+  "bugs": {
+    "url": "https://github.com/mohamedhabibwork/framework/issues"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mohamedhabibwork/framework-app.git"
   },
-  "bugs": {
-    "url": "https://github.com/mohamedhabibwork/framework/issues"
-  },
+  "type": "module",
   "scripts": {
     "dev": "bun run --hot bin/server.ts",
     "start": "bun run bin/server.ts",
