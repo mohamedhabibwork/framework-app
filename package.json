@@ -1,0 +1,48 @@
+{
+  "name": "framework-app",
+  "version": "0.2.0",
+  "description": "Starter API application built on mohamedhabibwork/framework",
+  "private": true,
+  "type": "module",
+  "homepage": "https://github.com/mohamedhabibwork/framework",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mohamedhabibwork/framework-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mohamedhabibwork/framework/issues"
+  },
+  "scripts": {
+    "dev": "bun run --hot bin/server.ts",
+    "start": "bun run bin/server.ts",
+    "cli": "bun run bin/cli.ts",
+    "worker": "bun run bin/worker.ts",
+    "db:generate": "drizzle-kit generate",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@framework/cache": "github:mohamedhabibwork/framework-cache#standalone",
+    "@framework/cli": "github:mohamedhabibwork/framework-cli#standalone",
+    "@framework/core": "github:mohamedhabibwork/framework-core#standalone",
+    "@framework/crud": "github:mohamedhabibwork/framework-crud#standalone",
+    "@framework/database": "github:mohamedhabibwork/framework-database#standalone",
+    "@framework/events": "github:mohamedhabibwork/framework-events#standalone",
+    "@framework/http": "github:mohamedhabibwork/framework-http#standalone",
+    "@framework/logging": "github:mohamedhabibwork/framework-logging#standalone",
+    "@framework/openapi": "github:mohamedhabibwork/framework-openapi#standalone",
+    "@framework/queue": "github:mohamedhabibwork/framework-queue#standalone",
+    "@framework/storage": "github:mohamedhabibwork/framework-storage#standalone",
+    "@framework/support": "github:mohamedhabibwork/framework-support#standalone",
+    "@framework/validation": "github:mohamedhabibwork/framework-validation#standalone",
+    "drizzle-orm": "0.45.4",
+    "hono": "4.13.13",
+    "zod": "4.6.5"
+  },
+  "devDependencies": {
+    "@framework/testing": "github:mohamedhabibwork/framework-testing#standalone",
+    "@types/bun": "1.4.2",
+    "drizzle-kit": "0.31.11",
+    "typescript": "7.0.2"
+  }
+}
