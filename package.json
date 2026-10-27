@@ -18,6 +18,10 @@
     "cli": "bun run bin/cli.ts",
     "worker": "bun run bin/worker.ts",
     "db:generate": "drizzle-kit generate",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check",
     "typecheck": "tsc -p tsconfig.json",
     "test": "bun test"
   },
@@ -43,6 +47,8 @@
     "@framework/testing": "github:mohamedhabibwork/framework-testing#standalone",
     "@types/bun": "1.4.2",
     "drizzle-kit": "0.31.11",
+    "oxfmt": "0.75.0",
+    "oxlint": "1.90.0",
     "typescript": "7.0.2"
   }
 }
