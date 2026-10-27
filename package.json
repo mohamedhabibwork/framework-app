@@ -34,6 +34,8 @@
     "@framework/events": "github:mohamedhabibwork/framework-events#standalone",
     "@framework/http": "github:mohamedhabibwork/framework-http#standalone",
     "@framework/logging": "github:mohamedhabibwork/framework-logging#standalone",
+    "@framework/mail": "github:mohamedhabibwork/framework-mail#standalone",
+    "@framework/notifications": "github:mohamedhabibwork/framework-notifications#standalone",
     "@framework/openapi": "github:mohamedhabibwork/framework-openapi#standalone",
     "@framework/queue": "github:mohamedhabibwork/framework-queue#standalone",
     "@framework/storage": "github:mohamedhabibwork/framework-storage#standalone",
