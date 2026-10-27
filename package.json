@@ -37,7 +37,7 @@
     "@framework/validation": "github:mohamedhabibwork/framework-validation#standalone",
     "drizzle-orm": "0.45.4",
     "hono": "4.13.13",
-    "zod": "4.6.5"
+    "zod": "4.6.7"
   },
   "devDependencies": {
     "@framework/testing": "github:mohamedhabibwork/framework-testing#standalone",
