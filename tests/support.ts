@@ -6,8 +6,7 @@ import {
   requireTestDatabaseUrl,
   serveOnEphemeralPort,
 } from '@framework/testing';
-import { createApplication, type FrameworkAppApplication } from '../bootstrap/app';
-import { createHttp } from '../bootstrap/http';
+import { createApplication, createHttp, type FrameworkAppApplication } from '../bootstrap/app';
 import { configSchema, mapEnvironment } from '../config';
 
 const APP_ROOT = join(import.meta.dir, '..');

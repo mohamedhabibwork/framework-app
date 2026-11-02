@@ -4,11 +4,8 @@ import { MemoryCache, RedisCache } from '@framework/cache';
 import { defineProject, frameworkCommands, runCli } from '@framework/cli';
 import { createConnection, type DatabaseConnection } from '@framework/database';
 import { listRoutes } from '@framework/http';
-import { createApplication } from '../bootstrap/app';
-import { createHttp } from '../bootstrap/http';
+import { app, buildOpenApiDocument, createApplication, createHttp } from '../bootstrap/app';
 import { createMiddleware } from '../bootstrap/middleware';
-import { buildOpenApiDocument, operations } from '../bootstrap/openapi';
-import { providers } from '../bootstrap/providers';
 import { type AppConfig, loadAppConfig } from '../config';
 
 const root = join(import.meta.dir, '..');
@@ -85,10 +82,9 @@ export const project = defineProject({
     schemaIndex: 'database/schema/index.ts',
     factories: 'database/factories',
     migrations: 'database/migrations',
-    apiRoutes: 'routes/api.ts',
-    providers: 'bootstrap/providers.ts',
+    app: 'bootstrap/app.ts',
+    providers: 'bootstrap/app.ts',
     middleware: 'bootstrap/middleware.ts',
-    openapi: 'bootstrap/openapi.ts',
     config: 'config/index.ts',
     testSupport: 'tests/support.ts',
   },
@@ -121,10 +117,10 @@ export const project = defineProject({
       await booted.shutdown();
     }
   },
-  providers: () => providers.map((provider) => provider.name),
+  providers: () => app.providers.map((provider) => provider.name),
   seeders: async () => (await import('../database/seeders')).seeders,
   middleware: () => middleware.describe(),
-  openapi: () => ({ operations, build: buildOpenApiDocument }),
+  openapi: () => ({ operations: app.operations, build: buildOpenApiDocument }),
 });
 
 if (import.meta.main) {

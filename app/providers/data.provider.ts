@@ -9,7 +9,7 @@ import { DATA_PORTER, EXPORT_STORE } from './data.tokens';
  * the local export artifact store, and the dispatcher behind `/api/v1/data`.
  * To opt a module in: define its import/export jobs with `defineImportJob`
  * /`defineExportJob` (pass `storeToken: EXPORT_STORE`), list them below,
- * and add the resource name to `dataOperations` in `bootstrap/openapi.ts`.
+ * and add the resource name to `dataOperations` in `bootstrap/app.ts`.
  */
 export const dataProvider = defineProvider<AppConfig>({
   name: 'data',

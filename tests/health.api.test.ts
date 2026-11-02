@@ -1,7 +1,6 @@
 import { afterAll, beforeAll, describe, expect, test } from 'bun:test';
 import { parseConfig } from '@framework/core';
-import { createApplication } from '../bootstrap/app';
-import { createHttp } from '../bootstrap/http';
+import { createApplication, createHttp } from '../bootstrap/app';
 import { configSchema, mapEnvironment } from '../config';
 
 /**

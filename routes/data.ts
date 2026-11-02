@@ -7,8 +7,8 @@ import { loadAppConfig } from '../config';
 // Loaded once; the authorization guard reads the validated env from it.
 const configPromise = loadAppConfig();
 /**
- * Queued import/export endpoints (documented via `dataOperations` in
- * `bootstrap/openapi.ts`):
+ * Queued import/export endpoints (registered and documented as the `data`
+ * module in `bootstrap/app.ts`):
  *
  * ```text
  * POST /api/v1/data/import                 dispatch an import (CSV/JSON)
