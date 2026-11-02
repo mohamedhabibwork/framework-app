@@ -1,7 +1,6 @@
 import { afterAll, beforeAll, describe, expect, test } from 'bun:test';
-import { parseConfig } from '@framework/core';
 import { createApplication, createHttp } from '../bootstrap/app';
-import { configSchema, mapEnvironment } from '../config';
+import { appConfig } from '../config';
 
 /**
  * Smoke test of the generated application: boots the real HTTP stack with a
@@ -13,15 +12,12 @@ let http: ReturnType<typeof createHttp>;
 let application: Awaited<ReturnType<typeof createApplication>> | undefined;
 
 beforeAll(async () => {
-  const config = parseConfig(
-    configSchema,
-    mapEnvironment({
-      APP_ENV: 'test',
-      APP_DEBUG: 'false',
-      // Never connected: /health/live does not touch the database.
-      DATABASE_URL: 'postgres://app:unused@127.0.0.1:1/unused',
-    }),
-  );
+  const config = appConfig.parse({
+    APP_ENV: 'test',
+    APP_DEBUG: 'false',
+    // Never connected: /health/live does not touch the database.
+    DATABASE_URL: 'postgres://app:unused@127.0.0.1:1/unused',
+  });
   application = await createApplication(config).boot();
   http = createHttp(application);
 });
