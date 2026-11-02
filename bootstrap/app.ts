@@ -1,20 +1,13 @@
-import { cacheHealthCheck } from '@framework/cache';
 import type { Application } from '@framework/core';
 import { auditRoutes, dataOperations } from '@framework/crud';
-import { AUDIT_READER, databaseHealthCheck } from '@framework/database';
+import { AUDIT_READER } from '@framework/database';
 import { defineApp, defineModule, type FrameworkEnv, forbidden, resolve } from '@framework/http';
 import { generateOpenApiDocument, type Operation } from '@framework/openapi';
-import { queueHealthCheck } from '@framework/queue';
+import { apiPreset, WEBSOCKET_GATEWAY } from '@framework/presets';
 import type { Context } from 'hono';
+import { notificationDeliveryJob } from '../app/jobs';
 import { listenersProvider } from '../app/listeners/listeners.provider';
-import { cacheProvider } from '../app/providers/cache.provider';
-import { dataProvider } from '../app/providers/data.provider';
-import { databaseProvider } from '../app/providers/database.provider';
-import { eventsProvider, WEBSOCKET_GATEWAY } from '../app/providers/events.provider';
-import { loggingProvider } from '../app/providers/logging.provider';
-import { mailProvider } from '../app/providers/mail.provider';
-import { notificationsProvider } from '../app/providers/notifications.provider';
-import { storageProvider } from '../app/providers/storage.provider';
+import { notifications } from '../app/notifications';
 import type { AppConfig } from '../config';
 import { dataRoutes } from '../routes/data';
 import { createMiddleware } from './middleware';
@@ -27,6 +20,13 @@ const dataModule = defineModule<AppConfig, Operation>({
   routes: { path: '/data', app: dataRoutes },
   operations: dataOperations({ mount: '/api/v1/data' }),
 });
+
+/**
+ * Database, cache, queue, events, logging, storage, mail, notifications and
+ * import/export, configured by `config/index.ts`. Replace a part by passing
+ * a provider (`mail: myMailProvider`) or remove it (`data: false`).
+ */
+const api = apiPreset<AppConfig>({ notifications: { definitions: notifications, job: notificationDeliveryJob } });
 
 /**
  * The application, registered in one place. Generators add providers and
@@ -53,22 +53,15 @@ export const app = defineApp<AppConfig, Operation>({
   }),
   middleware: (config) => createMiddleware(config).resolve(['api']),
   providers: [
-    cacheProvider,
-    loggingProvider,
-    storageProvider,
-    databaseProvider,
-    eventsProvider,
+    ...api.providers,
     listenersProvider,
-    dataProvider,
-    mailProvider,
-    notificationsProvider,
     // @framework:providers
   ],
   modules: [
     dataModule,
     // @framework:modules
   ],
-  health: { checks: [databaseHealthCheck(), cacheHealthCheck(), queueHealthCheck()] },
+  health: api.health,
   routes: (http, { config, container }) => {
     // @framework:app-routes
     http.route(

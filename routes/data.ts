@@ -1,7 +1,7 @@
 import { EXECUTION_CONTEXT } from '@framework/core';
 import { importExportRoutes } from '@framework/crud';
 import { forbidden, resolve } from '@framework/http';
-import { DATA_PORTER } from '../app/providers/data.tokens';
+import { DATA_PORTER } from '@framework/presets';
 import { loadAppConfig } from '../config';
 
 // Loaded once; the authorization guard reads the validated env from it.

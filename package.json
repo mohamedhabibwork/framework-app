@@ -37,6 +37,7 @@
     "@framework/mail": "github:mohamedhabibwork/framework-mail#standalone",
     "@framework/notifications": "github:mohamedhabibwork/framework-notifications#standalone",
     "@framework/openapi": "github:mohamedhabibwork/framework-openapi#standalone",
+    "@framework/presets": "github:mohamedhabibwork/framework-presets#standalone",
     "@framework/queue": "github:mohamedhabibwork/framework-queue#standalone",
     "@framework/storage": "github:mohamedhabibwork/framework-storage#standalone",
     "@framework/support": "github:mohamedhabibwork/framework-support#standalone",
