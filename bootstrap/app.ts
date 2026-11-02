@@ -33,7 +33,8 @@ const api = apiPreset<AppConfig>({
  * The kernel owns the fixed outer order: request id -> body limit -> request
  * scope -> secure headers (`http.secureHeaders`) -> CORS (`http.corsOrigins`,
  * off when empty). The `api` middleware group (shared throttle) then wraps
- * `/health`, every module under `/api/v1`, and the app routes.
+ * every module under `/api/v1` and the app routes; `/health` stays outside
+ * it so the probes still answer during a Redis outage.
  *
  * Audit endpoints (`/audit`) are denied in production until an
  * identity/authorization layer exists. The `/ws` gateway opens private
