@@ -1,32 +1,29 @@
 import type { Application } from '@framework/core';
-import { auditRoutes, dataOperations } from '@framework/crud';
+import { auditRoutes } from '@framework/crud';
 import { AUDIT_READER } from '@framework/database';
-import { defineApp, defineModule, type FrameworkEnv, forbidden, resolve } from '@framework/http';
+import { defineApp, type FrameworkEnv, forbidden, resolve } from '@framework/http';
 import { generateOpenApiDocument, type Operation } from '@framework/openapi';
 import { apiPreset, WEBSOCKET_GATEWAY } from '@framework/presets';
 import type { Context } from 'hono';
 import { notificationDeliveryJob } from '../app/jobs';
-import { listenersProvider } from '../app/listeners/listeners.provider';
+import { listeners } from '../app/listeners';
 import { notifications } from '../app/notifications';
 import type { AppConfig } from '../config';
-import { dataRoutes } from '../routes/data';
 import { createMiddleware } from './middleware';
 
 export type FrameworkAppApplication = Application<AppConfig>;
 
-/** Queued import/export endpoints under /api/v1/data (see `routes/data.ts`). */
-const dataModule = defineModule<AppConfig, Operation>({
-  name: 'data',
-  routes: { path: '/data', app: dataRoutes },
-  operations: dataOperations({ mount: '/api/v1/data' }),
-});
-
 /**
  * Database, cache, queue, events, logging, storage, mail, notifications and
  * import/export, configured by `config/index.ts`. Replace a part by passing
- * a provider (`mail: myMailProvider`) or remove it (`data: false`).
+ * a provider (`mail: myMailProvider`) or remove it (`data: false`). The
+ * import/export routes are denied in production until you pass
+ * `data: { authorize: requireAuth() }`.
  */
-const api = apiPreset<AppConfig>({ notifications: { definitions: notifications, job: notificationDeliveryJob } });
+const api = apiPreset<AppConfig>({
+  listeners,
+  notifications: { definitions: notifications, job: notificationDeliveryJob },
+});
 
 /**
  * The application, registered in one place. Generators add providers and
@@ -54,11 +51,10 @@ export const app = defineApp<AppConfig, Operation>({
   middleware: (config) => createMiddleware(config).resolve(['api']),
   providers: [
     ...api.providers,
-    listenersProvider,
     // @framework:providers
   ],
   modules: [
-    dataModule,
+    ...api.modules,
     // @framework:modules
   ],
   health: api.health,
