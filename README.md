@@ -11,21 +11,35 @@ Starter application template for [**mohamedhabibwork/framework**](https://github
 
 ## Create a New Application
 
-### Option 1: GitHub CLI / "Use this template"
+### Option 1: Standalone CLI (`bunx`)
+
+Scaffold a fresh standalone application from the template anywhere on your machine:
 
 ```sh
+bunx @framework/cli create my-api --with-demo
+# or directly from GitHub without npm:
+bunx --package github:mohamedhabibwork/framework-cli#standalone framework create my-api --with-demo
+```
+
+### Option 2: GitHub CLI / "Use this template"
+
+```sh
+bun create mohamedhabibwork/framework-app my-api
+# or with the GitHub CLI:
 gh repo create my-api --template mohamedhabibwork/framework-app --clone --private
 cd my-api
 cp .env.example .env
 bun install
 ```
 
-### Option 2: Framework CLI
+### Option 3: Inside the Framework Workspace
 
-From inside the [`mohamedhabibwork/framework`](https://github.com/mohamedhabibwork/framework) workspace:
+From inside the [`mohamedhabibwork/framework`](https://github.com/mohamedhabibwork/framework) monorepo:
 
 ```sh
-bun run cli -- create ../my-api
+bunx framework create apps/my-api --with-demo
+# or:
+bun run cli -- create apps/my-api --with-demo
 ```
 
 ## Quickstart
