@@ -77,6 +77,7 @@ All `@framework/*` packages are linked directly to their dedicated GitHub reposi
 - [`@framework/queue`](https://github.com/mohamedhabibwork/framework-queue)
 - [`@framework/cache`](https://github.com/mohamedhabibwork/framework-cache)
 - [`@framework/logging`](https://github.com/mohamedhabibwork/framework-logging)
+- [`@framework/presets`](https://github.com/mohamedhabibwork/framework-presets)
 - [`@framework/storage`](https://github.com/mohamedhabibwork/framework-storage)
 - [`@framework/openapi`](https://github.com/mohamedhabibwork/framework-openapi)
 - [`@framework/support`](https://github.com/mohamedhabibwork/framework-support)
